@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Clock & Timer App</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="tab-nav">
+            <button class="tab-btn active" data-tab="clock">Clock</button>
+            <button class="tab-btn" data-tab="timer">Timer</button>
+            <button class="tab-btn" data-tab="stopwatch">Stopwatch</button>
+            <button class="tab-btn" data-tab="alarm">Alarm</button>
+            <button class="tab-btn" data-tab="pomodoro">Pomodoro</button>
+        </div>
+
+        <div class="tab-content">
+            <!-- Clock Tab -->
+            <div class="tab active" id="clock">
+                <div class="analog-clock">
+                    <div class="clock-face">
+                        <div class="marking marking-12"></div>
+                        <div class="marking marking-3"></div>
+                        <div class="marking marking-6"></div>
+                        <div class="marking marking-9"></div>
+                        <div class="hand hour-hand"></div>
+                        <div class="hand minute-hand"></div>
+                        <div class="hand second-hand"></div>
+                        <div class="center-dot"></div>
+                    </div>
+                </div>
+                <div class="digital-clock">
+                    <div class="time">00:00:00</div>
+                    <div class="date">Monday, January 1, 2023</div>
+                    <div class="timezone">UTC+00:00</div>
+                </div>
+            </div>
+
+            <!-- Timer Tab -->
+            <div class="tab" id="timer">
+                <div class="timer-display">
+                    <div class="timer-input">
+                        <input type="number" id="hours" min="0" max="99" placeholder="HH">
+                        <span>:</span>
+                        <input type="number" id="minutes" min="0" max="59" placeholder="MM">
+                        <span>:</span>
+                        <input type="number" id="seconds" min="0" max="59" placeholder="SS">
+                    </div>
+                    <div class="timer-countdown">
+                        <span id="timer-hours">00</span>
+                        <span>:</span>
+                        <span id="timer-minutes">00</span>
+                        <span>:</span>
+                        <span id="timer-seconds">00</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar"></div>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button id="timer-start" class="control-btn"><i class="fas fa-play"></i> Start</button>
+                    <button id="timer-pause" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="timer-reset" class="control-btn" disabled><i class="fas fa-redo"></i> Reset</button>
+                </div>
+                <div class="timer-presets">
+                    <button class="preset-btn" data-time="60">1m</button>
+                    <button class="preset-btn" data-time="300">5m</button>
+                    <button class="preset-btn" data-time="600">10m</button>
+                    <button class="preset-btn" data-time="1800">30m</button>
+                </div>
+            </div>
+
+            <!-- Stopwatch Tab -->
+            <div class="tab" id="stopwatch">
+                <div class="stopwatch-display">
+                    <div id="stopwatch-time">00:00:00.000</div>
+                </div>
+                <div class="stopwatch-controls">
+                    <button id="stopwatch-start" class="control-btn"><i class="fas fa-play"></i> Start</button>
+                    <button id="stopwatch-pause" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="stopwatch-reset" class="control-btn" disabled><i class="fas fa-redo"></i> Reset</button>
+                    <button id="stopwatch-lap" class="control-btn" disabled><i class="fas fa-flag"></i> Lap</button>
+                </div>
+                <div class="laps-container">
+                    <h3>Laps</h3>
+                    <div class="laps-list"></div>
+                </div>
+            </div>
+
+            <!-- Alarm Tab -->
+            <div class="tab" id="alarm">
+                <div class="alarm-form">
+                    <div class="time-picker">
+                        <input type="number" id="alarm-hours" min="0" max="23" placeholder="HH">
+                        <span>:</span>
+                        <input type="number" id="alarm-minutes" min="0" max="59" placeholder="MM">
+                    </div>
+                    <button id="set-alarm" class="control-btn"><i class="fas fa-bell"></i> Set Alarm</button>
+                </div>
+                <div class="alarms-list">
+                    <h3>Active Alarms</h3>
+                    <div id="alarms-container"></div>
+                </div>
+            </div>
+
+            <!-- Pomodoro Tab -->
+            <div class="tab" id="pomodoro">
+                <div class="pomodoro-display">
+                    <div class="pomodoro-mode">Focus Time</div>
+                    <div class="pomodoro-time">25:00</div>
+                    <div class="pomodoro-cycles">Cycle 1/4</div>
+                    <div class="progress-container">
+                        <div class="progress-bar pomodoro-progress"></div>
+                    </div>
+                </div>
+                <div class="pomodoro-controls">
+                    <button id="pomodoro-start" class="control-btn"><i class="fas fa-play"></i> Start</button>
+                    <button id="pomodoro-pause" class="control-btn" disabled><i class="fas fa-pause"></i> Pause</button>
+                    <button id="pomodoro-reset" class="control-btn" disabled><i class="fas fa-redo"></i> Reset</button>
+                </div>
+                <div class="pomodoro-settings">
+                    <div class="setting">
+                        <label>Focus Time (min):</label>
+                        <input type="number" id="focus-time" min="1" max="60" value="25">
+                    </div>
+                    <div class="setting">
+                        <label>Break Time (min):</label>
+                        <input type="number" id="break-time" min="1" max="30" value="5">
+                    </div>
+                    <div class="setting">
+                        <label>Long Break Time (min):</label>
+                        <input type="number" id="long-break-time" min="1" max="60" value="15">
+                    </div>
+                    <div class="setting">
+                        <label>Cycles:</label>
+                        <input type="number" id="pomodoro-cycles" min="1" max="10" value="4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

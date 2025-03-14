@@ -1,0 +1,658 @@
+/* Base styles and resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #e74c3c;
+    --background-color: #f5f5f5;
+    --card-color: #ffffff;
+    --text-color: #333333;
+    --dark-accent: #2c3e50;
+    --success-color: #2ecc71;
+    --warning-color: #f39c12;
+    --timer-color: #9b59b6;
+    --pomodoro-work: #e74c3c;
+    --pomodoro-break: #2ecc71;
+}
+
+body {
+    background-color: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    transition: background-color 0.3s ease;
+}
+
+.container {
+    background-color: var(--card-color);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    overflow: hidden;
+    padding: 20px;
+    transform: translateY(0);
+    animation: appear 0.5s ease-out;
+}
+
+@keyframes appear {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Tab Navigation */
+.tab-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 20px;
+    background-color: var(--background-color);
+    border-radius: 15px;
+    padding: 5px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 10px 15px;
+    margin: 5px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    font-weight: 500;
+    outline: none;
+}
+
+.tab-btn:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+.tab-btn.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 3px 10px rgba(52, 152, 219, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Tab Content */
+.tab-content {
+    position: relative;
+    min-height: 350px;
+}
+
+.tab {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+
+.tab.active {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Clock Tab */
+.analog-clock {
+    width: 250px;
+    height: 250px;
+    margin: 0 auto 20px;
+    position: relative;
+}
+
+.clock-face {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 8px solid var(--dark-accent);
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1), inset 0 0 10px rgba(0, 0, 0, 0.1);
+    background: #fff;
+    transition: transform 0.3s ease;
+}
+
+.clock-face:hover {
+    transform: scale(1.03);
+}
+
+.marking {
+    position: absolute;
+    width: 5px;
+    height: 15px;
+    background-color: var(--dark-accent);
+    left: 50%;
+    margin-left: -2.5px;
+}
+
+.marking-12 {
+    top: 10px;
+}
+
+.marking-3 {
+    top: 50%;
+    right: 10px;
+    left: auto;
+    margin-top: -2.5px;
+    width: 15px;
+    height: 5px;
+}
+
+.marking-6 {
+    bottom: 10px;
+    top: auto;
+}
+
+.marking-9 {
+    top: 50%;
+    left: 10px;
+    margin-top: -2.5px;
+    width: 15px;
+    height: 5px;
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: 50% 100%;
+    border-radius: 10px 10px 0 0;
+}
+
+.hour-hand {
+    width: 8px;
+    height: 30%;
+    margin-left: -4px;
+    background-color: var(--dark-accent);
+}
+
+.minute-hand {
+    width: 6px;
+    height: 40%;
+    margin-left: -3px;
+    background-color: var(--dark-accent);
+}
+
+.second-hand {
+    width: 2px;
+    height: 45%;
+    margin-left: -1px;
+    background-color: var(--accent-color);
+}
+
+.center-dot {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background-color: var(--accent-color);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.digital-clock {
+    text-align: center;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--background-color);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.digital-clock .time {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--dark-accent);
+    margin-bottom: 5px;
+    font-family: 'Courier New', monospace;
+}
+
+.digital-clock .date {
+    font-size: 1.2rem;
+    color: var(--text-color);
+    margin-bottom: 5px;
+}
+
+.digital-clock .timezone {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.7;
+}
+
+/* Timer Tab */
+.timer-display {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--background-color);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.timer-input {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-input input {
+    width: 60px;
+    padding: 10px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 0 5px;
+}
+
+.timer-input span {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+.timer-countdown {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--timer-color);
+    margin-bottom: 15px;
+    font-family: 'Courier New', monospace;
+}
+
+.progress-container {
+    width: 100%;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 10px;
+    transition: width 1s linear;
+}
+
+.timer-controls, .stopwatch-controls, .pomodoro-controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.control-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.control-btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+.control-btn:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.control-btn i {
+    font-size: 0.9rem;
+}
+
+.timer-presets {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.preset-btn {
+    padding: 8px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 20px;
+    background: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.preset-btn:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* Stopwatch Tab */
+.stopwatch-display {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--background-color);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+#stopwatch-time {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--dark-accent);
+    font-family: 'Courier New', monospace;
+}
+
+.laps-container {
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    background-color: var(--background-color);
+}
+
+.laps-container h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.lap-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 10px;
+    border-bottom: 1px solid #e0e0e0;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.lap-item:last-child {
+    border-bottom: none;
+}
+
+.lap-number {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.lap-time {
+    color: var(--dark-accent);
+}
+
+/* Alarm Tab */
+.alarm-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--background-color);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.time-picker {
+    display: flex;
+    align-items: center;
+}
+
+.time-picker input {
+    width: 70px;
+    padding: 10px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    margin: 0 5px;
+}
+
+.time-picker span {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.alarms-list {
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+    background-color: var(--background-color);
+}
+
+.alarms-list h3 {
+    text-align: center;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.alarm-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    animation: slideIn 0.3s ease;
+}
+
+.alarm-time {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--dark-accent);
+}
+
+.alarm-delete {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.alarm-delete:hover {
+    background-color: #c0392b;
+}
+
+/* Pomodoro Tab */
+.pomodoro-display {
+    text-align: center;
+    padding: 20px;
+    border-radius: 15px;
+    background-color: var(--background-color);
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.pomodoro-mode {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--pomodoro-work);
+    margin-bottom: 5px;
+}
+
+.pomodoro-time {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--dark-accent);
+    margin-bottom: 5px;
+    font-family: 'Courier New', monospace;
+}
+
+.pomodoro-cycles {
+    font-size: 1rem;
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+.pomodoro-progress {
+    background-color: var(--pomodoro-work);
+}
+
+.pomodoro-settings {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: var(--background-color);
+}
+
+.setting {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.setting label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.setting input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .analog-clock {
+        width: 200px;
+        height: 200px;
+    }
+
+    .digital-clock .time {
+        font-size: 2.5rem;
+    }
+
+    .timer-countdown, .pomodoro-time {
+        font-size: 2.8rem;
+    }
+
+    .pomodoro-settings {
+        grid-template-columns: 1fr;
+    }
+
+    .tab-btn {
+        font-size: 0.9rem;
+        padding: 8px 12px;
+    }
+}
+
+/* Animations */
+.animate-pulse {
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.shake {
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    10%, 30%, 50%, 70%, 90% {
+        transform: translateX(-5px);
+    }
+    20%, 40%, 60%, 80% {
+        transform: translateX(5px);
+    }
+}
+
+/* Dark mode - add a class to body to toggle */
+body.dark-mode {
+    --background-color: #1a1a1a;
+    --card-color: #2d2d2d;
+    --text-color: #f5f5f5;
+    --dark-accent: #3498db;
+}
+
+body.dark-mode .clock-face {
+    background-color: #333;
+    border-color: #555;
+}
+
+body.dark-mode .progress-container {
+    background-color: #444;
+}

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Board - Task Management</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-water"></i>
+            <h1>Flow Board</h1>
+        </div>
+        <div class="project-selector">
+            <select id="project-select">
+                <option value="default">Default Project</option>
+            </select>
+            <button id="new-project-btn" class="btn small-btn"><i class="fas fa-folder-plus"></i></button>
+        </div>
+        <div class="controls">
+            <button id="add-board-btn" class="btn"><i class="fas fa-plus"></i> New Board</button>
+            <button id="dark-mode-btn" class="btn"><i class="fas fa-moon"></i></button>
+        </div>
+    </header>
+
+    <div class="board-container">
+        <div class="board" data-board-id="board-1">
+            <div class="board-header">
+                <h3 contenteditable="true">To Do</h3>
+                <div class="board-controls">
+                    <button class="add-card-btn"><i class="fas fa-plus"></i></button>
+                    <button class="delete-board-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="cards-container">
+                <div class="card" draggable="true">
+                    <div class="card-content">
+                        <h4>Research competitors</h4>
+                        <p>Look at similar products in the market</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="priority high">High</span>
+                        <span class="date">June 10</span>
+                        <button class="delete-card-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="card" draggable="true">
+                    <div class="card-content">
+                        <h4>Design mockups</h4>
+                        <p>Create initial UI concepts</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="priority medium">Medium</span>
+                        <span class="date">June 15</span>
+                        <button class="delete-card-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="board" data-board-id="board-2">
+            <div class="board-header">
+                <h3 contenteditable="true">In Progress</h3>
+                <div class="board-controls">
+                    <button class="add-card-btn"><i class="fas fa-plus"></i></button>
+                    <button class="delete-board-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="cards-container">
+                <div class="card" draggable="true">
+                    <div class="card-content">
+                        <h4>Create homepage</h4>
+                        <p>Build and style the landing page</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="priority high">High</span>
+                        <span class="date">June 12</span>
+                        <button class="delete-card-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="board" data-board-id="board-3">
+            <div class="board-header">
+                <h3 contenteditable="true">Done</h3>
+                <div class="board-controls">
+                    <button class="add-card-btn"><i class="fas fa-plus"></i></button>
+                    <button class="delete-board-btn"><i class="fas fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="cards-container">
+                <div class="card" draggable="true">
+                    <div class="card-content">
+                        <h4>Set up project</h4>
+                        <p>Initialize repository and project structure</p>
+                    </div>
+                    <div class="card-footer">
+                        <span class="priority low">Low</span>
+                        <span class="date">June 5</span>
+                        <button class="delete-card-btn"><i class="fas fa-times"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-board-placeholder">
+            <div class="add-board-content">
+                <i class="fas fa-plus"></i>
+                <p>Add new board</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for adding new cards -->
+    <div id="card-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add New Card</h2>
+            <form id="add-card-form">
+                <div class="form-group">
+                    <label for="card-title">Title</label>
+                    <input type="text" id="card-title" placeholder="Enter title" required>
+                </div>
+                <div class="form-group">
+                    <label for="card-description">Description</label>
+                    <textarea id="card-description" placeholder="Enter description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="card-priority">Priority</label>
+                    <select id="card-priority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="card-date">Due Date</label>
+                    <input type="date" id="card-date">
+                </div>
+                <button type="submit" class="btn submit-btn">Add Card</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal for creating new project -->
+    <div id="project-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Create New Project</h2>
+            <form id="add-project-form">
+                <div class="form-group">
+                    <label for="project-name">Project Name</label>
+                    <input type="text" id="project-name" placeholder="Enter project name" required>
+                </div>
+                <div class="form-group">
+                    <label for="project-description">Description</label>
+                    <textarea id="project-description" placeholder="Enter project description"></textarea>
+                </div>
+                <button type="submit" class="btn submit-btn">Create Project</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirmation modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content small-modal">
+            <h2>Confirm Action</h2>
+            <p id="confirm-message">Are you sure you want to proceed?</p>
+            <div class="confirm-buttons">
+                <button id="confirm-yes" class="btn">Yes</button>
+                <button id="confirm-no" class="btn secondary-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

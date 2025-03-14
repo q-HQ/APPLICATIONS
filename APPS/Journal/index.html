@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Journal - Capture Your Thoughts</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Lora:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <div class="sidebar">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                <h1>My Journal</h1>
+            </div>
+            <div class="menu">
+                <div class="menu-item active" data-view="entries">
+                    <i class="fas fa-calendar-alt"></i>
+                    <span>Entries</span>
+                </div>
+                <div class="menu-item" data-view="favorites">
+                    <i class="fas fa-star"></i>
+                    <span>Favorites</span>
+                </div>
+                <div class="menu-item" data-view="moods">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Mood Tracker</span>
+                </div>
+                <div class="menu-item" data-view="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </div>
+            </div>
+            <div class="new-entry-btn">
+                <button id="new-entry">
+                    <i class="fas fa-plus"></i>
+                    New Entry
+                </button>
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="header">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search your journal...">
+                </div>
+                <div class="user-profile">
+                    <div class="weather">
+                        <i class="fas fa-cloud-sun"></i>
+                        <span>72°F</span>
+                    </div>
+                    <div class="date">
+                        <span id="current-date"></span>
+                    </div>
+                    <div class="avatar">
+                        <img src="https://ui-avatars.com/api/?name=User&background=random" alt="User Avatar">
+                    </div>
+                </div>
+            </div>
+
+            <div class="view" id="entries-view">
+                <h2 class="view-title">Recent Entries</h2>
+                <div class="entries-grid" id="entries-container">
+                    <!-- Entries will be added dynamically -->
+                </div>
+            </div>
+
+            <div class="view hidden" id="favorites-view">
+                <h2 class="view-title">Favorite Entries</h2>
+                <div class="entries-grid" id="favorites-container">
+                    <!-- Favorite entries will be added dynamically -->
+                </div>
+            </div>
+
+            <div class="view hidden" id="moods-view">
+                <h2 class="view-title">Mood Tracker</h2>
+                <div class="mood-calendar">
+                    <div class="calendar-header">
+                        <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="month-year">August 2023</h3>
+                        <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="weekdays">
+                        <div>Sun</div>
+                        <div>Mon</div>
+                        <div>Tue</div>
+                        <div>Wed</div>
+                        <div>Thu</div>
+                        <div>Fri</div>
+                        <div>Sat</div>
+                    </div>
+                    <div class="days" id="calendar-days">
+                        <!-- Days will be added dynamically -->
+                    </div>
+                    <div class="mood-legend">
+                        <div class="mood-item">
+                            <span class="mood-color" style="background-color: #ff7979;"></span>
+                            <span>Sad</span>
+                        </div>
+                        <div class="mood-item">
+                            <span class="mood-color" style="background-color: #ffbe76;"></span>
+                            <span>Okay</span>
+                        </div>
+                        <div class="mood-item">
+                            <span class="mood-color" style="background-color: #55efc4;"></span>
+                            <span>Good</span>
+                        </div>
+                        <div class="mood-item">
+                            <span class="mood-color" style="background-color: #74b9ff;"></span>
+                            <span>Great</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="view hidden" id="settings-view">
+                <h2 class="view-title">Settings</h2>
+                <div class="settings-container">
+                    <div class="setting-group">
+                        <h3>Appearance</h3>
+                        <div class="setting-item">
+                            <span>Dark Mode</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="dark-mode-toggle">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Font Size</span>
+                            <div class="font-size-options">
+                                <button class="font-size-btn" data-size="small">S</button>
+                                <button class="font-size-btn active" data-size="medium">M</button>
+                                <button class="font-size-btn" data-size="large">L</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Notifications</h3>
+                        <div class="setting-item">
+                            <span>Daily Reminder</span>
+                            <label class="toggle">
+                                <input type="checkbox" id="reminder-toggle" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <span>Reminder Time</span>
+                            <input type="time" value="20:00" id="reminder-time">
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Data & Privacy</h3>
+                        <div class="setting-item">
+                            <span>Export Journal Data</span>
+                            <button id="export-data" class="secondary-btn">Export</button>
+                        </div>
+                        <div class="setting-item">
+                            <span>Clear All Data</span>
+                            <button id="clear-data" class="danger-btn">Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal for creating/editing entries -->
+    <div class="modal" id="entry-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">New Journal Entry</h2>
+                <button class="close-modal">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="entry-date-container">
+                    <input type="date" id="entry-date">
+                    <div class="mood-selector">
+                        <p>How are you feeling today?</p>
+                        <div class="mood-options">
+                            <div class="mood" data-mood="sad">
+                                <i class="far fa-sad-tear"></i>
+                                <span>Sad</span>
+                            </div>
+                            <div class="mood" data-mood="okay">
+                                <i class="far fa-meh"></i>
+                                <span>Okay</span>
+                            </div>
+                            <div class="mood" data-mood="good">
+                                <i class="far fa-smile"></i>
+                                <span>Good</span>
+                            </div>
+                            <div class="mood" data-mood="great">
+                                <i class="far fa-grin-stars"></i>
+                                <span>Great</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <input type="text" id="entry-title" placeholder="Entry Title">
+                <div class="editor-toolbar">
+                    <button data-format="bold"><i class="fas fa-bold"></i></button>
+                    <button data-format="italic"><i class="fas fa-italic"></i></button>
+                    <button data-format="underline"><i class="fas fa-underline"></i></button>
+                    <button data-format="insertUnorderedList"><i class="fas fa-list-ul"></i></button>
+                    <button data-format="insertOrderedList"><i class="fas fa-list-ol"></i></button>
+                    <button data-format="createLink"><i class="fas fa-link"></i></button>
+                    <button data-format="insertImage"><i class="fas fa-image"></i></button>
+                </div>
+                <div id="editor" contenteditable="true"></div>
+                <div class="tags-container">
+                    <div class="tags-input">
+                        <label><i class="fas fa-tags"></i></label>
+                        <input type="text" id="tag-input" placeholder="Add tags...">
+                    </div>
+                    <div class="tags" id="tags-list"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn secondary-btn" id="cancel-entry">Cancel</button>
+                <button class="btn primary-btn" id="save-entry">Save Entry</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast" id="toast">
+        <div class="toast-icon">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="toast-message">Entry saved successfully!</div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

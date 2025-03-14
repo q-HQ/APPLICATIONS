@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <h1>Notes App</h1>
+            <button id="add-note-btn">Add New Note</button>
+        </header>
+
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="Search notes...">
+        </div>
+
+        <div class="notes-container" id="notes-container">
+            <!-- NoteFlow will be added here by JavaScript -->
+        </div>
+    </div>
+
+    <div class="modal" id="note-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <input type="text" id="note-title" placeholder="Note Title">
+            <textarea id="note-content" placeholder="Note Content"></textarea>
+            <div class="modal-buttons">
+                <button id="save-note-btn">Save Note</button>
+                <button id="cancel-note-btn">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
